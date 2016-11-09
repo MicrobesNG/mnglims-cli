@@ -1,3 +1,8 @@
+## Installation / Requirements
+* python3, with dependencies listed in requirements.txt
+* Add your API key to settings.py
+
+## Commands
 #### getplatemeta
 * **-r, --ref:** (str) The plate reference for which you want meta-data
 

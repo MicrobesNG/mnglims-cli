@@ -17,6 +17,18 @@ if __name__ == '__main__':
         help='The plate reference for which you want meta-data')
     parser_getplatemeta.set_defaults(func=get_plate_meta)
 
+    # create the parser for the "setsamplequeue" command
+    parser_setsamplequeue = subparsers.add_parser('setsamplequeue')
+    parser_setsamplequeue.add_argument(
+        'refs',
+        type=str,
+        help='The sample references you wish to queue (comma delimited)')
+    parser_setsamplequeue.add_argument(
+        'queue',
+        type=str,
+        help='The name of the destination queue')
+    parser_setsamplequeue.set_defaults(func=set_sample_queue)
+
     # create the parser for the "setprojectresultspath" command
     parser_setprojectresultspath = subparsers.add_parser('setprojectresultspath')
     parser_setprojectresultspath.add_argument(

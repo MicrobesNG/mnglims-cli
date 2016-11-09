@@ -1,3 +1,4 @@
 limsfm/settings.py
 __pycache__/
 *.pyc
+*.swp

@@ -74,12 +74,11 @@ def set_project_results_path(args):
     json = {'data': [{'results_path': args.path}]}
     uri = ('layout/project_api/%(field)s%(value)s' %
            {
-               'field': urllib.quote('reference==='),
-               'value': urllib.quote(args.ref)
+               'field': urllib.parse.quote('reference==='),
+               'value': urllib.parse.quote(args.ref)
            })
     try:
         response = limsfm_request(uri, 'put', json=json)
     except requests.RequestException as e:
         print(e.response.text)
-    print(response)
 

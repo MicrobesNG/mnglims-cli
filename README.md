@@ -10,9 +10,9 @@
 * **queue-id:** (int) The id of the destination queue
 * **ref:** (str) The sample references you wish to queue
 
-#### setprojectresultspath
-* **-r, --ref:** (str) The project reference
-* **-p, --path:** (str) The results data path
+#### setprojectresultspath [-h] ref path
+* **ref:** (str) The project reference
+* **path:** (str) The results data path (unique part)
 
 #### getqueues
 * No arguments

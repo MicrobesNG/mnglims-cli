@@ -1,3 +1,4 @@
+import json
 import requests
 import urllib
 
@@ -40,34 +41,41 @@ def get_plate_meta(args):
                 r['container_position'],
                 r['unstored_project_plate_row']))
 
+def get_queues(args):
+    """Get Queue data"""
+    try:
+        response = limsfm_request('layout/queue_api', 'get', {
+            'RFMmax': 0
+        })
+    except requests.RequestException as e:
+        print(e.response.text)
+    else:
+        print('ID\tName')
+        for r in sorted(response.json()['data'],
+                        key=lambda x: int(x['sort_order'])):
+            print('{}\t{}'.format(
+                r['queue_id'],
+                r['name']))
 
-sample_queue_scripts = {
-    'bioinformatics': 'sample_queue_bioinformatics'
-}
 
 def set_sample_queue(args):
     """Set the (most recent projectline queue) for one or more samples refs"""
-    queue_name = args.queue.lower()
-    if queue_name not in sample_queue_scripts:
-        print("Not a valid queue")
-        return
-
-    uri = 'script/{}/REST'.format(sample_queue_scripts[queue_name])
+    script_param = {'queueId': args.queue_id, 'sampleRefList': args.ref}
+    uri = 'script/set_sample_queue/REST'
     try:
-        response = limsfm_request(uri, 'get', params={
-            'RFMscriptParam': args.refs
-        })
+        response = limsfm_request(uri, 'get', params={'RFMscriptParam': json.dumps(script_param)})
+        print(response.text)
     except requests.RequestException as e:
         print(e.response.text)
 
 
 def set_project_results_path(args):
     """Update project results path"""
-    json = {'data': [{'results_path': args.results_path}]}
+    json = {'data': [{'results_path': args.path}]}
     uri = ('layout/project_api/%(field)s%(value)s' %
            {
                'field': urllib.quote('reference==='),
-               'value': urllib.quote(args.project_ref)
+               'value': urllib.quote(args.ref)
            })
     try:
         response = limsfm_request(uri, 'put', json=json)

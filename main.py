@@ -9,7 +9,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='LIMSfm API')
     subparsers = parser.add_subparsers()
 
-    # create the parser for the "getplatemeta" command
+    # subparser: "getplatemeta" command
     parser_getplatemeta = subparsers.add_parser('getplatemeta')
     parser_getplatemeta.add_argument(
         'ref',
@@ -17,31 +17,39 @@ if __name__ == '__main__':
         help='The plate reference for which you want meta-data')
     parser_getplatemeta.set_defaults(func=get_plate_meta)
 
-    # create the parser for the "setsamplequeue" command
+    # subparser: "setsamplequeue" command
     parser_setsamplequeue = subparsers.add_parser('setsamplequeue')
     parser_setsamplequeue.add_argument(
-        'refs',
-        type=str,
-        help='The sample references you wish to queue (comma delimited)')
+        'queue_id',
+        metavar='queue-id',
+        type=int,
+        help='The id of the destination queue')
     parser_setsamplequeue.add_argument(
-        'queue',
+        'ref',
+        nargs='+',
         type=str,
-        help='The name of the destination queue')
+        help='The sample references you wish to queue')
     parser_setsamplequeue.set_defaults(func=set_sample_queue)
 
-    # create the parser for the "setprojectresultspath" command
+    # subparser: "setprojectresultspath" command
     parser_setprojectresultspath = subparsers.add_parser('setprojectresultspath')
     parser_setprojectresultspath.add_argument(
-        'project_ref',
-        metavar='project-ref',
+        'ref',
         type=str,
-        help='The project reference you wish to update')
+        help='The project reference')
     parser_setprojectresultspath.add_argument(
-        'results_path',
-        metavar='results-path',
+        'path',
         type=str,
-        help='The project results path')
+        help='The results data path')
     parser_setprojectresultspath.set_defaults(func=set_project_results_path)
+
+    # subparser: "getqueues" command
+    parser_getqueues = subparsers.add_parser('getqueues')
+    parser_getqueues.set_defaults(func=get_queues)
+
+    # subparser: "getemailtemplates" command
+    #parser_getemailtemplates = subparsers.add_parser('getemailtemplates')
+    #parser_getemailtemplates.set_defaults(func=get_email_templates)
 
     # parse the args and call whatever function was selected
     args = parser.parse_args()

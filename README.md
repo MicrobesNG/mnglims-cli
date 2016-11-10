@@ -3,12 +3,12 @@
 * Add your API key to settings.py
 
 ## Commands
-#### getplatemeta
-* **-r, --ref:** (str) The plate reference for which you want meta-data
+#### getplatemeta [-h] ref
+* **ref:** (str) The plate reference for which you want meta-data
 
-#### setsamplequeue
-* **-r, --ref:** (str) The sample reference(s) you wish to queue (n+)
-* **-q, --queue** (int) The id of the destination queue
+#### setsamplequeue [-h] queue-id ref [ref ...]
+* **queue-id:** (int) The id of the destination queue
+* **ref:** (str) The sample references you wish to queue
 
 #### setprojectresultspath
 * **-r, --ref:** (str) The project reference

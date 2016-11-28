@@ -63,9 +63,6 @@ if __name__ == '__main__':
         type='bool',
         help='Suspected sample contamination (True/False)'
     )
-    updatesamples_args = parser_updatesamples.parse_args()    
-    if not any(getattr(updatesamples_args, a) for a in vars(updatesamples_args) if a not in ('ref', 'func')):
-        parser_updatesamples.error('No sample fields specified; nothing to update.')
 
     # subparser: "getemailtemplates" command
     #parser_getemailtemplates = subparsers.add_parser('getemailtemplates')

@@ -17,7 +17,7 @@
 * **ref:** (str) The project reference
 * **path:** (str) The results data path (unique part)
 
-#### updatesamples
+#### updatesamples [-h] [-c] ref [ref ...]
 * **ref** (str) The sample reference(s) you wish to update
 * **-c, --suspected-contamination** (bool) Suspected sample contamination
 

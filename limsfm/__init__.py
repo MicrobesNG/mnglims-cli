@@ -82,3 +82,18 @@ def set_project_results_path(args):
     except requests.RequestException as e:
         print(e.response.text)
 
+def update_samples(args):
+    """Update sample record(s)"""
+    json = {'meta': [], 'data': []}
+    field_names = ['suspected_contamination']
+    for f, v in ((f, getattr(args, f)) for f in field_names if getattr(args, f)):
+        for s in args.ref:
+            v = getattr(args, f)
+            json['meta'].append({'recordID': 'reference==={}'.format(s)})
+            json['data'].append({f: int(v) if type(v) is bool else v})
+    print(json)
+    try:
+        response = limsfm_request('bulk/sample_api', 'put', json=json)
+    except requests.RequestException as e:
+        print(e.response.text)
+

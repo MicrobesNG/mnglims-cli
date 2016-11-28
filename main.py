@@ -47,6 +47,26 @@ if __name__ == '__main__':
     parser_getqueues = subparsers.add_parser('getqueues')
     parser_getqueues.set_defaults(func=get_queues)
 
+    # subparser: "updatesamples" command
+    parser_updatesamples = subparsers.add_parser('updatesamples')
+    parser_updatesamples.set_defaults(func=update_samples) 
+    parser_updatesamples.register('type', 'bool', lambda x: x.lower() in ("yes", "true", "t", "1"))
+    parser_updatesamples.add_argument(
+        'ref',
+        nargs='+',
+        type=str,
+        help='The sample reference(s) you wish to update'
+    )
+    parser_updatesamples.add_argument(
+        '-c, --suspected-contamination',
+        dest='suspected_contamination',
+        type='bool',
+        help='Suspected sample contamination (True/False)'
+    )
+    updatesamples_args = parser_updatesamples.parse_args()    
+    if not any(getattr(updatesamples_args, a) for a in vars(updatesamples_args) if a not in ('ref', 'func')):
+        parser_updatesamples.error('No sample fields specified; nothing to update.')
+
     # subparser: "getemailtemplates" command
     #parser_getemailtemplates = subparsers.add_parser('getemailtemplates')
     #parser_getemailtemplates.set_defaults(func=get_email_templates)

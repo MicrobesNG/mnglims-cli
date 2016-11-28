@@ -20,4 +20,5 @@
 #### updatesamples
 * **ref** (str) The sample reference(s) you wish to update
 * **-c, --suspected-contamination** (bool) Suspected sample contamination
+
 Note: when updating boolean values you must specify both the option and the value: e.g., -c False

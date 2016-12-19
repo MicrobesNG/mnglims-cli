@@ -45,7 +45,8 @@ def get_plate_meta(args):
             'Project reference',
             'Gram staining type',
             'GC content %',
-            'Genome size mb'
+            'Genome size mb',
+            'Target coverage'
         ]))
         for r in sorted(response.json()['data'],
                         key=lambda x: int(x['container_position'])):
@@ -60,6 +61,7 @@ def get_plate_meta(args):
                 r['Sample::gram_staining_type'],
                 r['Taxon::uc_closest_gc_content'],
                 r['Taxon::uc_closest_genome_size_mb'],
+                r['unstored_last_target_coverage']
             ]))
 
 def get_queues(args):

@@ -66,7 +66,7 @@ def get_plate_meta(args):
                 r['Sample::gram_staining_type'],
                 r['Taxon::uc_closest_gc_content'],
                 r['Taxon::uc_closest_genome_size_mb'],
-                r['unstored_last_target_coverage']
+                r['unstored_target_depth_of_coverage']
             ]))
 
 def get_queues(args):

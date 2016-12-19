@@ -48,12 +48,17 @@ def get_plate_meta(args):
             'Genome size mb',
             'Target coverage'
         ]))
+        procedure_ref_digits = filter(str.isdigit, args.ref)
         for r in sorted(response.json()['data'],
                         key=lambda x: int(x['container_position'])):
+            sample_ref = r['Sample::reference']
+            container_index_alpha = r['container_index_alpha']
+            if bool(int(r['Sample::is_control'])):
+                sample_ref += 'pl' + procedure_ref_digits + container_index_alpha
             print('\t'.join([
                 r['container_position'],
-                r['container_index_alpha'],
-                r['Sample::reference'],
+                container_index_alpha,
+                sample_ref,
                 r['Sample::customers_ref'],
                 r['Sample::unstored_library_count'],
                 r['Sample::taxon_name'],

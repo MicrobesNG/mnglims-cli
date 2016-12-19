@@ -35,11 +35,32 @@ def get_plate_meta(args):
     except requests.RequestException as e:
         print(e.response.text)
     else:
+        print('\t'.join([
+            'Position',
+            'Well',
+            'Sample reference',
+            'Customer\'s sample reference',
+            'Library count',
+            'Taxon name',
+            'Project reference',
+            'Gram staining type',
+            'GC content %',
+            'Genome size mb'
+        ]))
         for r in sorted(response.json()['data'],
-                        key=lambda x: x['container_position']):
-            print('{}\t{}'.format(
+                        key=lambda x: int(x['container_position'])):
+            print('\t'.join([
                 r['container_position'],
-                r['unstored_project_plate_row']))
+                r['container_index_alpha'],
+                r['Sample::reference'],
+                r['Sample::customers_ref'],
+                r['Sample::unstored_library_count'],
+                r['Sample::taxon_name'],
+                r['Project::reference'],
+                r['Sample::gram_staining_type'],
+                r['Taxon::uc_closest_gc_content'],
+                r['Taxon::uc_closest_genome_size_mb'],
+            ]))
 
 def get_queues(args):
     """Get Queue data"""

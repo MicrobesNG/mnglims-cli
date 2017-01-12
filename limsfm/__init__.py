@@ -48,7 +48,7 @@ def get_plate_meta(args):
             'Genome size mb',
             'Target coverage'
         ]))
-        procedure_ref_digits = filter(str.isdigit, args.ref)
+        procedure_ref_digits = ''.join(c for c in args.ref if c.isdigit)
         for r in sorted(response.json()['data'],
                         key=lambda x: int(x['container_position'])):
             sample_ref = r['Sample::reference']

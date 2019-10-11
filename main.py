@@ -31,6 +31,14 @@ if __name__ == '__main__':
         help='The sample references you wish to queue')
     parser_setsamplequeue.set_defaults(func=set_sample_queue)
 
+    # subparser : "getprojectresultspath" command
+    parser_getprojectresultspath = subparsers.add_parser('getprojectresultspath')
+    parser_getprojectresultspath.add_argument(
+    'ref',
+    type=str,
+    help='The project reference')
+    parser_getprojectresultspath.set_defaults(func=get_project_results_path)
+
     # subparser: "setprojectresultspath" command
     parser_setprojectresultspath = subparsers.add_parser('setprojectresultspath')
     parser_setprojectresultspath.add_argument(
@@ -71,4 +79,3 @@ if __name__ == '__main__':
     # parse the args and call whatever function was selected
     args = parser.parse_args()
     args.func(args)
-

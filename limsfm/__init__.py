@@ -49,7 +49,8 @@ def get_plate_meta(args):
             'GC content %',
             'Genome size mb',
          #   'test',
-            'Target coverage'
+            'Target coverage',
+            'DNA conc ng/uL'
         ]))
         procedure_ref_digits = ''.join(c for c in args.ref if c.isdigit())
         for r in sorted(response.json()['data'],
@@ -71,7 +72,8 @@ def get_plate_meta(args):
                 r['Taxon::uc_closest_gc_content'],
                 r['Taxon::uc_closest_genome_size_mb'],
                #r['Sample::host_taxon_id'],
-                r['unstored_target_depth_of_coverage']
+                r['unstored_target_depth_of_coverage'],
+                r['dna_concentration_ng_ul'],
             ]))
 
 def get_queues(args):

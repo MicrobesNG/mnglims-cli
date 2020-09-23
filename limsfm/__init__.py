@@ -18,8 +18,6 @@ def limsfm_request(rel_uri, method='get', params={}, json=None):
         method, uri, params=params, json=json).prepare()
     response = s.send(prepped_request, timeout=60)
     response.raise_for_status()
-    #print(uri)
-    #print(method, uri, params, json)
 
     return response
 
@@ -48,9 +46,9 @@ def get_plate_meta(args):
             'Gram staining type',
             'GC content %',
             'Genome size mb',
-         #   'test',
             'Target coverage',
-            'DNA conc ng/uL'
+            'Input DNA conc ng/uL',
+            'CAN DNA conc ng/uL',
         ]))
         procedure_ref_digits = ''.join(c for c in args.ref if c.isdigit())
         for r in sorted(response.json()['data'],
@@ -74,6 +72,7 @@ def get_plate_meta(args):
                #r['Sample::host_taxon_id'],
                 r['unstored_target_depth_of_coverage'],
                 r['dna_concentration_ng_ul'],
+                r['aliquot_Aliquot#childCAN::dna_concentration_ng_ul'],
             ]))
 
 def get_queues(args):

@@ -49,6 +49,7 @@ def get_plate_meta(args):
             'Target coverage',
             'Input DNA conc ng/uL',
             'CAN DNA conc ng/uL',
+            'Sample type'
         ]))
         procedure_ref_digits = ''.join(c for c in args.ref if c.isdigit())
         for r in sorted(response.json()['data'],
@@ -73,6 +74,7 @@ def get_plate_meta(args):
                 r['unstored_target_depth_of_coverage'],
                 r['dna_concentration_ng_ul'],
                 r['aliquot_Aliquot#childCAN::dna_concentration_ng_ul'],
+                r['Sample::unstored_first_aliquottype_name'],
             ]))
 
 def get_queues(args):
